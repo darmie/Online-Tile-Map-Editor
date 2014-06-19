@@ -1,32 +1,35 @@
-define([
-	"jquery-ui",
-	"underscore"
-], function($, _) {
+define(function() {
 
 	var Utils = {}, Editor;
 
-	Utils.initialize = function(namespace) {
+	/* ======================== */
+	/* ====== INITIALIZE ====== */
+	/* ======================== */
 
-		Editor = namespace;
+	Utils.initialize = function() {
 
-		return this;
+		Editor = require("editor");
 	};
 
-	Utils.make_selection = function(e, container) {
+	/* ============================ */
+	/* ====== MAKE SELECTION ====== */
+	/* ============================ */
 
-		var tileset = Editor.active_tileset,
-			tw = tileset.tilesize.width,
-			th = tileset.tilesize.height,
-			sx, sy;
+	Utils.makeSelection = function(e, container) {
 
-			$container = $(container),
-			offset =  $container.offset(),
+		var tileset = Editor.activeTileset,
+		    tw = tileset.tilewidth,
+		    th = tileset.tileheight,
+		    sx, sy;
+
+		    $container = Editor.$(container),
+		    offset =  $container.offset(),
 
 			// Current x position relative to the tileset area
-			x = Math.floor(((e.pageX - offset.left) + $container.scrollTop()) / tw) * tw,
-			y = Math.floor(((e.pageY - offset.top) + $container.scrollLeft()) / th) * th,
+		    x = Math.floor(((e.pageX - offset.left) + $container.scrollTop()) / tw) * tw,
+		    y = Math.floor(((e.pageY - offset.top) + $container.scrollLeft()) / th) * th,
 
-			$selection = $container.find(".selection");
+		    $selection = $container.find(".selection");
 
 		// Create and append selection div
 		if (e.type == "mousedown") {
@@ -53,7 +56,7 @@ define([
 				sy = Editor.tmp_selection[0][1];
 
 				var w = Math.abs((x-sx) + tw),
-					h = Math.abs((y-sy) + th);
+				    h = Math.abs((y-sy) + th);
 
 				// Selection goes right
 				if (sx <= x) { $selection.css({ left: sx, width: w }); }
@@ -69,7 +72,7 @@ define([
 				if (!$selection.length)
 				{ $container.append("<div class='selection'></div>"); }
 
-				$container.find(".selection").css({
+			$container.find(".selection").css({
 					left: x, top: y,
 					width: tw, height: th
 				});
@@ -78,8 +81,8 @@ define([
 		} else if (e.type == "mouseup" && Editor.tmp_selection) {
 
 			var s = Editor.tmp_selection,
-				id = $("select[name=tileset_select] option:selected").index(),
-				ex, ey;
+			    id = Editor.$("select[name=tileset_select] option:selected").index(),
+			    ex, ey;
 
 			s[1][0] = x;
 			s[1][1] = y;

@@ -51,6 +51,8 @@ a:hover { text-decoration: underline; }
 	box-shadow: inset 0px 1px #C00 !important;
 }
 
+.disabled { pointer-events: none; }
+
 a span { padding-right: 2px; }
 
 /* ============================ */
@@ -576,14 +578,14 @@ ul#layerlist > li.active {
 	border: 0px;
 }
 
-.ui-button-text .icon-remove-sign {
+.ui-button-text, .fa-times-circle {
 	color: #111;
 	font-size: 18px;
 	margin-right: 10px;
 	text-shadow: 0px 1px rgba(255, 255, 255, 0.5);
 }
 
-.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text {
+.ui-button-icon, .icon-only, .ui-button-text, .ui-button-icons-only, .ui-button-text {
 	padding: 0em !important;
 	text-indent: 0px !important;
 }
@@ -604,7 +606,6 @@ ul#layerlist > li.active {
 	padding: 20px;
 	display: none;
 	overflow: hidden;
-	min-width: 350px;
 }
 
 #dialog hr {
@@ -640,16 +641,16 @@ ul#layerlist > li.active {
 
 .stretch { width: 100%; }
 
-#dialog #file_container { position: relative; }
+#file_container { position: relative; }
 
-#dialog input[name=file] {
+#file_container input[type=file] {
 	position: relative;
 	height: 20px;
 	opacity: 0;
 	z-index: 9999;
 }
 
-#dialog input[name=file_overlay] {
+#file_container input[name=file_overlay] {
 	position: absolute;
 	top: 0px;
 	left: 0px;
